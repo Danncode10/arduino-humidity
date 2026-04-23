@@ -1,0 +1,113 @@
+
+================================================================================
+         ARDUINO UNO + DHT11 HUMIDITY SENSOR — WIRING DIAGRAM
+================================================================================
+
+  ARDUINO UNO (top view)                        DHT11 SENSOR
+  ┌─────────────────────────┐                  ┌──────────────┐
+  │  [ ] RESET              │                  │   ┌──────┐   │
+  │  [ ] 3.3V               │                  │   │ /\/\ │   │  <- humidity grid
+  │  [ ] 5V  ───────────────┼──── RED ─────────┼──►│ VCC  │   │  PIN 1
+  │  [ ] GND ───────────────┼──── BLACK ───────┼──►│ GND  │   │  PIN 4  (*)
+  │  [ ] GND                │                  │   │ DATA │◄──┼──── YELLOW    │
+  │  [ ] VIN                │                  │   │      │   │  PIN 2
+  │                         │                  │   └──────┘   │
+  │  A0 [ ]                 │                  └──────────────┘
+  │  A1 [ ]                 │
+  │  A2 [ ]                 │        (*) NOTE: DHT11 pin 3 = NOT CONNECTED
+  │  A3 [ ]                 │
+  │  A4 [ ]                 │
+  │  A5 [ ]                 │
+  │                         │        PULL-UP RESISTOR (10kΩ)
+  │  D13 [ ]                │        Connects between 5V and DATA line
+  │  D12 [ ]                │
+  │  D11 [ ]                │             5V ──┬──────────────── VCC (pin 1)
+  │  D10 [ ]                │                  │
+  │   D9 [ ]                │                 [R]  10kΩ
+  │   D8 [ ]                │                  │
+  │   D7 [ ]                │                  └──────────────── DATA (pin 2)
+  │   D6 [ ]                │                                        │
+  │   D5 [ ]                │                                        │
+  │   D4 [ ]                │        D2 ─────────────────────────────┘
+  │   D3 [ ]                │
+  │   D2 [ ]───────────────-┼──── YELLOW ──────────────────────── DATA (pin 2)
+  │   D1 TX [ ]             │
+  │   D0 RX [ ]             │
+  └─────────────────────────┘
+
+
+================================================================================
+                         BREADBOARD LAYOUT
+================================================================================
+
+BREADBOARD (side view)
+
+  (+) rail ─── 5V (Arduino)
+  (-) rail ─── GND (Arduino)
+
+        a   b   c   d   e       f   g   h   i   j
+       ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+   1   │   │   │   │   │   │   │   │   │   │   │
+   2   │   │   │   │   │   │   │   │   │   │   │
+   3   │VCC│DAT│ NC│GND│   │   │   │   │   │   │  <- DHT11 legs inserted here
+   4   │   │   │   │   │   │   │   │   │   │   │
+   5   │   │[R]│   │   │   │   │   │   │   │   │  <- 10kΩ resistor (a5 to +rail)
+   6   │   │   │   │   │   │   │   │   │   │   │
+       └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+        │    │            │
+        │    │            └──── BLACK wire ──── GND (Arduino)
+        │    └─────────────── YELLOW wire ──── D2  (Arduino)
+        └──────────────────── RED wire    ──── 5V  (Arduino)
+
+
+================================================================================
+                         WIRE COLOR GUIDE
+================================================================================
+
+   RED    ──────  5V power          (Arduino 5V  →  DHT11 VCC)
+   BLACK  ──────  Ground            (Arduino GND →  DHT11 GND)
+   YELLOW ──────  Data signal       (Arduino D2  →  DHT11 DATA)
+   ORANGE ──────  Pull-up resistor  (5V rail → 10kΩ → DATA line)
+
+
+================================================================================
+                         PIN REFERENCE TABLE
+================================================================================
+
+   ┌────────────────┬────────────────┬────────────────┬─────────────────────┐
+   │  Arduino Pin   │  DHT11 Pin     │  Wire Color    │  Description        │
+   ├────────────────┼────────────────┼────────────────┼─────────────────────┤
+   │  5V            │  Pin 1 (VCC)   │  RED           │  3.3V–5V Power      │
+   │  D2            │  Pin 2 (DATA)  │  YELLOW        │  Digital Signal     │
+   │  —             │  Pin 3         │  —             │  NOT CONNECTED      │
+   │  GND           │  Pin 4 (GND)   │  BLACK         │  Ground             │
+   │  5V ──[10kΩ]── │  Pin 2 (DATA)  │  ORANGE        │  Pull-up Resistor   │
+   └────────────────┴────────────────┴────────────────┴─────────────────────┘
+
+
+================================================================================
+                         COMPONENTS LIST
+================================================================================
+
+   [1]  Arduino UNO R3
+   [2]  DHT11 Temperature & Humidity Sensor (4-pin module or bare)
+   [3]  10kΩ Resistor  (Brown-Black-Orange bands)  ← REQUIRED for stable data
+   [4]  Half-size Breadboard
+   [5]  Jumper Wires: 1x RED, 1x BLACK, 1x YELLOW, 1x ORANGE
+
+
+================================================================================
+                         QUICK-START CHECKLIST
+================================================================================
+
+   [ ] 1. Install "DHT sensor library" by Adafruit in Arduino IDE
+   [ ] 2. Install "Adafruit Unified Sensor" dependency (prompted automatically)
+   [ ] 3. Wire per diagram above
+   [ ] 4. Upload humidity_sensor.ino to Arduino
+   [ ] 5. Open Serial Monitor → set baud rate to 9600
+   [ ] 6. Readings appear every 2 seconds:
+              Humidity:    55.00 %
+              Temperature: 27.00 °C
+              ----------------------------
+
+================================================================================
